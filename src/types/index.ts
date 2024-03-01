@@ -13,3 +13,7 @@ export interface ModalTodoType {
 	_id?:number
 	todoTitle:string
 }
+
+export interface TypeDataComment {
+	review:string
+}

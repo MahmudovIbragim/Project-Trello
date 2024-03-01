@@ -520,18 +520,43 @@ export const LeftModal = styled.div`
 
 export const ComentContainer = styled.div`
 	padding-left: 20px;
+	width: 100%;
 	height: 100%;
 	border-radius: 5px;
 	color: white;
+	margin-top: 20px;
+`;
+
+export const CommetnsBox = styled.div`
+	display: flex;
+	align-items: center;
+	width: 100%;
+	img {
+		width: 50px;
+		border-radius: 50%;
+	}
 	ul {
-		padding-left: 10px;
+		width: 85%;
+		padding-left: 20px;
+		h5 {
+			font-size: 16px;
+			font-weight: 600;
+			margin: 0px;
+			margin-bottom: 10px;
+			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+				Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+				sans-serif;
+		}
 		li {
 			display: flex;
-			flex-direction: column;
+			justify-content: space-between;
+			padding: 10px 0px 10px 15px;
+			border-radius: 8px;
+			width: 90%;
+			background-color: #22272b;
 			img {
-				width: 30px;
-				height: 30px;
-				border-radius: 50%;
+				width: 25px;
+				text-align: end;
 			}
 		}
 	}

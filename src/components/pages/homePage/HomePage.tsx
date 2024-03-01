@@ -57,7 +57,8 @@ import {
 	ContentModalBox,
 	LeftModal,
 	RightModal,
-	ComentContainer
+	ComentContainer,
+	CommetnsBox
 } from './HomePageStyle';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -69,6 +70,11 @@ import {
 } from '../../../redux/features/todoSlice';
 import { ModalTodoType, TodoItemType, TodoType } from '../../../types';
 import Modal from '../modal/Modal';
+import {
+	deleteComment,
+	getComments,
+	postComments
+} from '../../../redux/features/commentSlice';
 
 const HomePage = () => {
 	const dispatch = useAppDispatch();
@@ -88,6 +94,25 @@ const HomePage = () => {
 	const [isModal, setIsModal] = useState<null | number | ModalTodoType>(null);
 	const [openModal, setOpenModal] = useState(false);
 	const [comentModalId, setComentModalId] = useState<null | number>(null);
+	const commentsData = useAppSelector((state) => state.commentReducer.data);
+	const [comentValue, setComentValue] = useState('');
+	console.log(commentsData);
+
+	const handleAddComments = () => {
+		if (comentValue === '') {
+			alert('Поля путсая');
+		} else {
+			const newData = {
+				review: comentValue
+			};
+			dispatch(postComments(newData));
+			setComentValue('');
+		}
+	};
+
+	const deleteItemCommeent = (id: number) => {
+		dispatch(deleteComment(id));
+	};
 
 	// 											Modals
 	const modalOpen = (id: number, todo: ModalTodoType) => {
@@ -165,8 +190,6 @@ const HomePage = () => {
 		}
 	};
 
-	console.log(dataTodos);
-
 	const upDataTodoTitle = (
 		e: React.KeyboardEvent,
 		id: number,
@@ -202,6 +225,7 @@ const HomePage = () => {
 	useEffect(() => {
 		dispatch(getUsers());
 		dispatch(getTodo());
+		dispatch(getComments());
 	}, []);
 
 	useEffect(() => {
@@ -410,10 +434,41 @@ const HomePage = () => {
 															<ContentModalBox>
 																<LeftModal>
 																	<h3>{todo.todoTitle}</h3>
-																	<h4>Коментарии</h4>
-																	<input type="text" />
-																	<button>Добавить коментари</button>
-																	<ComentContainer></ComentContainer>
+																	<h4>Комментарии</h4>
+																	<input
+																		type="text"
+																		value={comentValue}
+																		onChange={(e) =>
+																			setComentValue(e.target.value)
+																		}
+																	/>
+																	<button onClick={handleAddComments}>
+																		Добавить комментари
+																	</button>
+																	<ComentContainer>
+																		{commentsData.map((element) => (
+																			<>
+																				<CommetnsBox>
+																					<img src={profileImage} alt="" />
+																					<ul>
+																						<h5>{userName}</h5>
+																						<li>
+																							{element.review}{' '}
+																							<img
+																								src={delete_btn}
+																								onClick={() =>
+																									deleteItemCommeent(
+																										element._id
+																									)
+																								}
+																								alt=""
+																							/>
+																						</li>
+																					</ul>
+																				</CommetnsBox>
+																			</>
+																		))}
+																	</ComentContainer>
 																</LeftModal>
 																<RightModal>
 																	<ul>
