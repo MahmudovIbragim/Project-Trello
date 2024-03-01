@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
+import x_icon from '../../../assets/x-symbol-svgrepo-com.svg';
 
 interface TypeModal {
 	isOpen: boolean;
@@ -36,6 +37,22 @@ const ContentModal = styled.div`
 	top: 10%;
 	left: 25%;
 `;
+const ButtonClose = styled.button`
+	border: none;
+	outline: none;
+	padding: 5px 20px 0px 0px;
+	color: white;
+	background-color: transparent;
+	position: absolute;
+	top: 11%;
+	left: 67.1%;
+	z-index: 11;
+	img {
+		margin-right: 10px;
+		width: 23px;
+		cursor: pointer;
+	}
+`;
 
 const Modal = ({ isOpen, onClose, children }: TypeModal) => {
 	const [isBrowser, setIsBrowser] = useState(false);
@@ -46,14 +63,14 @@ const Modal = ({ isOpen, onClose, children }: TypeModal) => {
 
 	const modalContent = isOpen && (
 		<ModalBox>
-			<button
+			<ButtonClose
 				onClick={(e) => {
 					e.stopPropagation();
 					onClose();
 				}}
 			>
-				X
-			</button>
+				<img src={x_icon} alt="" />
+			</ButtonClose>
 			<ContentModal>{children}</ContentModal>
 		</ModalBox>
 	);

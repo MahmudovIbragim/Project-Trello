@@ -26,7 +26,6 @@ import birki from '../../../assets/birki.svg';
 import files_setting from '../../../assets/files-settings.svg';
 import nested_icon from '../../../assets/nested-icon.svg';
 import lid_icon from '../../../assets/lid-icon.svg';
-import modal_title from '../../../assets/modal-title.svg';
 import modal_icon from '../../../assets/icon-modal.svg';
 import {
 	AddCard,
@@ -55,10 +54,10 @@ import {
 	ProfileImage,
 	RightContent,
 	SideBar,
-	DeleteCardModal,
 	ContentModalBox,
 	LeftModal,
-	RightModal
+	RightModal,
+	ComentContainer
 } from './HomePageStyle';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -68,7 +67,7 @@ import {
 	postTodo,
 	putTodoTitle
 } from '../../../redux/features/todoSlice';
-import { TodoItemType, TodoType } from '../../../types';
+import { ModalTodoType, TodoItemType, TodoType } from '../../../types';
 import Modal from '../modal/Modal';
 
 const HomePage = () => {
@@ -86,20 +85,17 @@ const HomePage = () => {
 	const [cardId, setCardId] = useState<null | number>(null);
 	const [isCompleted, setIsCompleted] = useState<null | number>(null);
 	const [newInput, setNewInput] = useState('');
-	// delete item modal
-	// const [cardOpenModal, setCardOpenModal] = useState<number | null>(null);
-	const [isModal, setIsModal] = useState(null);
+	const [isModal, setIsModal] = useState<null | number | ModalTodoType>(null);
 	const [openModal, setOpenModal] = useState(false);
-	const [comentModalId, setComentModalId] = useState<null | number>(null)
+	const [comentModalId, setComentModalId] = useState<null | number>(null);
 
 	// 											Modals
-	const modalOpen = (id, todo) => {
+	const modalOpen = (id: number, todo: ModalTodoType) => {
 		console.log(id);
 		console.log(todo._id);
-
 		if (id === todo._id) {
 			setIsModal(todo);
-			setComentModalId(id)
+			setComentModalId(id);
 			setOpenModal(true);
 		}
 	};
@@ -300,7 +296,7 @@ const HomePage = () => {
 										</ul>
 									</InfoUser>
 									<ul>
-										<li onClick={() => navigate('/')}>Сменить аккаунт </li>
+										<li onClick={removeUserIsLocal}>Сменить аккаунт </li>
 										<li>Упровлять счетом </li>
 									</ul>
 								</BurgerBar>
@@ -403,7 +399,7 @@ const HomePage = () => {
 											src={modal_icon}
 											alt=""
 											onClick={() => {
-												modalOpen(todo._id, todo);
+												modalOpen(todo._id!, todo);
 											}}
 										/>
 										{comentModalId === todo._id ? (
@@ -413,8 +409,11 @@ const HomePage = () => {
 														<>
 															<ContentModalBox>
 																<LeftModal>
-																	<p>{todo.todoTitle}</p>
+																	<h3>{todo.todoTitle}</h3>
+																	<h4>Коментарии</h4>
 																	<input type="text" />
+																	<button>Добавить коментари</button>
+																	<ComentContainer></ComentContainer>
 																</LeftModal>
 																<RightModal>
 																	<ul>
@@ -456,7 +455,6 @@ const HomePage = () => {
 																			<img src={delete_btn} alt="" />
 																			Улаить задачу
 																		</li>
-																		<li></li>
 																	</ul>
 																</RightModal>
 															</ContentModalBox>
@@ -493,11 +491,6 @@ const HomePage = () => {
 										alt=""
 									/>
 								</ButtonTitles>
-								{/* {cardOpenModal === item._id ? (
-									<>
-										<DeleteCardModal></DeleteCardModal>
-									</>
-								) : null} */}
 							</Card>
 						))}
 						{isOpenForm ? (

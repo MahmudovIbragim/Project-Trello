@@ -8,3 +8,8 @@ export interface TodoType {
 	title: string;
 	todos: TodoItemType[];
 }
+
+export interface ModalTodoType {
+	_id?:number
+	todoTitle:string
+}

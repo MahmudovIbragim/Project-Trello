@@ -114,6 +114,7 @@ export const BurgerMenu = styled.div`
 	border-radius: 10px;
 	z-index: 1;
 	background-color: #282e33;
+	color: white;
 `;
 export const BurgerBar = styled.div`
 	margin: 5px 0;
@@ -129,6 +130,7 @@ export const BurgerBar = styled.div`
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
+		padding-left: 25px;
 		li {
 			font-size: 16px;
 			font-weight: 600;
@@ -136,6 +138,15 @@ export const BurgerBar = styled.div`
 				Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
 				sans-serif;
 			cursor: pointer;
+			max-width: 180px;
+			width: 100%;
+			border-radius: 5px;
+			padding: 5px 0px 5px 10px;
+			background-color: #484e53;
+			&:hover {
+				color: #dadce3;
+				background-color: #40464d;
+			}
 		}
 	}
 `;
@@ -143,11 +154,11 @@ export const BurgerBar = styled.div`
 export const InfoUser = styled.div`
 	display: flex;
 	align-items: center;
-	margin-left: 40px;
+	margin-left: 35px;
 	ul {
 		padding: 0px;
 		li {
-			margin-left: 20px;
+			margin-left: 15px;
 			font-size: 16px;
 			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
 				Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
@@ -156,9 +167,13 @@ export const InfoUser = styled.div`
 		}
 	}
 	img {
-		width: 50px;
-		height: 50px;
+		border: 2px solid transparent;
+		width: 60px;
+		height: 60px;
 		border-radius: 50%;
+		&:hover {
+			border: 2px solid white;
+		}
 	}
 `;
 
@@ -240,6 +255,7 @@ export const NavLeft = styled.div`
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
 			Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
 			sans-serif;
+		cursor: pointer;
 	}
 `;
 
@@ -356,6 +372,8 @@ export const Card = styled.div`
 	textarea {
 		max-width: 260px;
 		max-height: 20px;
+		min-width: 260px;
+		min-height: 20px;
 		width: 260px;
 		height: 20px;
 		color: white;
@@ -441,18 +459,105 @@ export const ContentModalBox = styled.div`
 `;
 
 export const LeftModal = styled.div`
-	background-color: red;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin-left: 30px;
+	h3 {
+		font-size: 20px;
+		font-weight: 600;
+		color: white;
+		margin-top: 0px;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+			Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+			sans-serif;
+	}
+	h4 {
+		font-size: 16px;
+		font-weight: 600;
+		color: white;
+		margin-top: 0px;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+			Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+			sans-serif;
+	}
+	input {
+		font-size: 18px;
+		font-weight: 600;
+		color: white;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+			Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+			sans-serif;
+		border: 2px solid #2552f5;
+		border-radius: 10px;
+		padding: 10px 0px 10px 20px;
+		background-color: transparent;
+		outline: none;
+		width: 95%;
+		&:hover {
+			background-color: #3f454b;
+		}
+	}
+	button {
+		font-size: 16px;
+		font-weight: 600;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+			Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+			sans-serif;
+		width: fit-content;
+		border-radius: 5px;
+		margin-top: 20px;
+		padding: 10px 15px;
+		border: none;
+		outline: none;
+		color: white;
+		background-color: #2552f5;
+		&:hover {
+			background-color: #0037ff;
+		}
+	}
+`;
+
+export const ComentContainer = styled.div`
+	padding-left: 20px;
+	height: 100%;
+	border-radius: 5px;
+	color: white;
+	ul {
+		padding-left: 10px;
+		li {
+			display: flex;
+			flex-direction: column;
+			img {
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+			}
+		}
+	}
 `;
 
 export const RightModal = styled.div`
 	ul {
 		display: flex;
 		flex-direction: column;
+		gap: 10px;
+		margin-right: 20px;
+		margin-top: 60px;
+		padding-top: 20px;
 		li {
 			display: flex;
-			
+			padding: 10px;
+			background-color: #3b444c;
+			border-radius: 5px;
+			color: white;
+			cursor: pointer;
+			&:hover {
+				background-color: #484e53;
+			}
 			img {
 				width: 20px;
+				margin-right: 10px;
 			}
 		}
 	}
