@@ -127,7 +127,7 @@ const LoginPage = () => {
 		});
 
 		if (findData) {
-			localStorage.setItem('isUser', findData._id);
+			localStorage.setItem('isUser', '' + findData._id);
 			navigate('/home');
 		} else {
 			alert('не правильно');

@@ -378,6 +378,8 @@ export const Card = styled.div`
 `;
 
 export const CardBoxy = styled.div`
+	display: flex;
+	justify-content: space-between;
 	width: 100%;
 	padding: 3px 0px;
 	border-radius: 5px;
@@ -385,7 +387,13 @@ export const CardBoxy = styled.div`
 	color: white;
 	p {
 		margin: 0px;
-		padding: 5px 0px 5px 15px;
+		padding: 5px 50px 5px 15px;
+	}
+
+	img {
+		width: 18px;
+		margin-right: 8px;
+		cursor: pointer;
 	}
 `;
 
@@ -407,8 +415,11 @@ export const ButtonTitles = styled.div`
 		outline: none;
 		color: white;
 		background-color: transparent;
+		cursor: pointer;
 		img {
+			cursor: pointer;
 			margin-right: 10px;
 		}
 	}
 `;
+export const DeleteCardModal = styled.div``

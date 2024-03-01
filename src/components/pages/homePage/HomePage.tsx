@@ -3,6 +3,7 @@ import info_logo from '../../../assets/info_logo.svg';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { useEffect, useState } from 'react';
 import { getUsers } from '../../../redux/features/userSlice';
+import delete_btn from '../../../assets/delete-button-svgrepo-com.svg';
 import bell_icon from '../../../assets/211693_bell_icon.svg';
 import pictures from '../../../assets/pictures.svg';
 import members from '../../../assets/members.svg';
@@ -47,16 +48,19 @@ import {
 	PageHome,
 	ProfileImage,
 	RightContent,
-	SideBar
+	SideBar,
+	DeleteCardModal
 } from './HomePageStyle';
 import { useNavigate } from 'react-router-dom';
 import {
+	deleteItem,
 	getTodo,
 	patchTodo,
 	postTodo,
 	putTodoTitle
 } from '../../../redux/features/todoSlice';
 import { TodoItemType, TodoType } from '../../../types';
+import Modal from '../modal/Modal';
 
 const HomePage = () => {
 	const dispatch = useAppDispatch();
@@ -73,6 +77,23 @@ const HomePage = () => {
 	const [cardId, setCardId] = useState<null | number>(null);
 	const [isCompleted, setIsCompleted] = useState<null | number>(null);
 	const [newInput, setNewInput] = useState('');
+	// delete item modal
+	// const [cardOpenModal, setCardOpenModal] = useState<number | null>(null);
+	const [isModal, setIsModal] = useState<number | null>(null);
+	const [openModal, setOpenModal] = useState(false);
+
+	// 											Modals
+	const modalOpen = (item) => {
+		setIsModal(item);
+		setOpenModal(true);
+	};
+
+	const onClose = () => {
+		setOpenModal(false);
+		setIsModal(null);
+	};
+
+	//												Modal
 
 	const isUsers = +localStorage.getItem('isUser')!;
 
@@ -157,6 +178,12 @@ const HomePage = () => {
 			setIsCompleted(null);
 		}
 	};
+	// 														delete
+	const deleteItemTodos = (_id: number) => {
+		dispatch(deleteItem(_id));
+	};
+
+	// 											delete
 
 	useEffect(() => {
 		dispatch(getUsers());
@@ -354,6 +381,13 @@ const HomePage = () => {
 												</p>
 											</>
 										)}
+										<img
+											src={delete_btn}
+											alt=""
+											onClick={() => {
+												alert('sss');
+											}}
+										/>
 									</CardBoxy>
 								))}
 								{item._id === cardId ? (
@@ -374,8 +408,26 @@ const HomePage = () => {
 										<img src={plus_btn} alt="" />
 										Добавить Задачу
 									</button>
-									<img src={modal_title} alt="" />
+									<img
+										onClick={() => {
+											modalOpen(item);
+										}}
+										src={modal_title}
+										alt=""
+									/>
 								</ButtonTitles>
+								{/* {cardOpenModal === item._id ? (
+									<>
+										<DeleteCardModal></DeleteCardModal>
+									</>
+								) : null} */}
+								<Modal isOpen={openModal} onClose={onClose}>
+									{isModal && (
+										<>
+											<div>sadas</div>
+										</>
+									)}
+								</Modal>
 							</Card>
 						))}
 						{isOpenForm ? (

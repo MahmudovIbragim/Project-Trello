@@ -71,6 +71,18 @@ export const putTodoTitle = createAsyncThunk(
 	}
 );
 
+export const deleteItem = createAsyncThunk(
+	'todo/deleteTodo',
+	async (_id: number) => {
+		try {
+			const response = (await axios.delete(`${apiLink}/${_id}`)).data;
+			return response;
+		} catch (e) {
+			console.error(e);
+		}
+	}
+);
+
 const todoSlice = createSlice({
 	name: 'todos',
 	initialState,
@@ -118,6 +130,20 @@ const todoSlice = createSlice({
 				state.loading = false;
 			})
 			.addCase(putTodoTitle.rejected, (state) => {
+				state.loading = false;
+				state.error = true;
+			})
+			.addCase(deleteItem.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(deleteItem.fulfilled, (state, action) => {
+				state.data = action.payload;
+				console.log(action.payload);
+				console.log(state.data);
+
+				state.loading = false;
+			})
+			.addCase(deleteItem.rejected, (state) => {
 				state.loading = false;
 				state.error = true;
 			});
