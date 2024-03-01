@@ -19,7 +19,7 @@ const ModalBox = styled.div`
 	z-index: 1;
 	width: 100%;
 	height: 100%;
-	background: rgba(2, 2, 2, 0.695);
+	background: rgba(2, 2, 2, 0.699);
 `;
 const ContentModal = styled.div`
 	display: flex;
@@ -31,6 +31,10 @@ const ContentModal = styled.div`
 	margin-left: 70px;
 	gap: 10px 100px;
 	border-radius: 5px;
+	position: absolute;
+	z-index: 10;
+	top: 10%;
+	left: 25%;
 `;
 
 const Modal = ({ isOpen, onClose, children }: TypeModal) => {
@@ -41,7 +45,15 @@ const Modal = ({ isOpen, onClose, children }: TypeModal) => {
 	}, []);
 
 	const modalContent = isOpen && (
-		<ModalBox onClick={() => onClose()}>
+		<ModalBox>
+			<button
+				onClick={(e) => {
+					e.stopPropagation();
+					onClose();
+				}}
+			>
+				X
+			</button>
 			<ContentModal>{children}</ContentModal>
 		</ModalBox>
 	);

@@ -22,6 +22,7 @@ import dop_menu from '../../../assets/dop_menu.svg';
 import peaksoft from '../../../assets/peaksoft.svg';
 import plus_btn from '../../../assets/add-plus-btn.svg';
 import modal_title from '../../../assets/modal-title.svg';
+import modal_icon from '../../../assets/icon-modal.svg';
 import {
 	AddCard,
 	Advresting,
@@ -49,7 +50,9 @@ import {
 	ProfileImage,
 	RightContent,
 	SideBar,
-	DeleteCardModal
+	DeleteCardModal,
+	ContentModalBox,
+	LeftModal
 } from './HomePageStyle';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -83,8 +86,7 @@ const HomePage = () => {
 	const [openModal, setOpenModal] = useState(false);
 
 	// 											Modals
-	const modalOpen = (item) => {
-		setIsModal(item);
+	const modalOpen = () => {
 		setOpenModal(true);
 	};
 
@@ -382,10 +384,11 @@ const HomePage = () => {
 											</>
 										)}
 										<img
-											src={delete_btn}
+											src={modal_icon}
 											alt=""
 											onClick={() => {
-												alert('sss');
+												modalOpen();
+												console.log(';ss');
 											}}
 										/>
 									</CardBoxy>
@@ -410,9 +413,9 @@ const HomePage = () => {
 									</button>
 									<img
 										onClick={() => {
-											modalOpen(item);
+											deleteItemTodos(item._id!);
 										}}
-										src={modal_title}
+										src={delete_btn}
 										alt=""
 									/>
 								</ButtonTitles>
@@ -424,7 +427,12 @@ const HomePage = () => {
 								<Modal isOpen={openModal} onClose={onClose}>
 									{isModal && (
 										<>
-											<div>sadas</div>
+											<ContentModalBox>
+												<LeftModal>
+													<h2>asd</h2>
+													<input type="text" />
+												</LeftModal>
+											</ContentModalBox>
 										</>
 									)}
 								</Modal>

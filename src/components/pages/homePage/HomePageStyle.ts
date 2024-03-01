@@ -421,5 +421,29 @@ export const ButtonTitles = styled.div`
 			margin-right: 10px;
 		}
 	}
+	img {
+		width: 20px;
+		margin-right: 6px;
+	}
 `;
-export const DeleteCardModal = styled.div``
+export const DeleteCardModal = styled.div``;
+
+//  													modals
+
+export const ContentModalBox = styled.div`
+	display: flex;
+	justify-content: space-between;
+	max-width: 768px;
+	width: 100%;
+	padding: 12px 0px;
+	background-color: #323940;
+	border-radius: 7px;
+	position: absolute;
+	z-index: 11;
+`;
+
+export const LeftModal = styled.div``;
+
+export const RightModal = styled.div``;
+
+//														 modals
