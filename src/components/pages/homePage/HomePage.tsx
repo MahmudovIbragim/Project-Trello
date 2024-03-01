@@ -21,6 +21,11 @@ import plusUser from '../../../assets/plusUser.svg';
 import dop_menu from '../../../assets/dop_menu.svg';
 import peaksoft from '../../../assets/peaksoft.svg';
 import plus_btn from '../../../assets/add-plus-btn.svg';
+import time_date from '../../../assets/time-date.svg';
+import birki from '../../../assets/birki.svg';
+import files_setting from '../../../assets/files-settings.svg';
+import nested_icon from '../../../assets/nested-icon.svg';
+import lid_icon from '../../../assets/lid-icon.svg';
 import modal_title from '../../../assets/modal-title.svg';
 import modal_icon from '../../../assets/icon-modal.svg';
 import {
@@ -52,7 +57,8 @@ import {
 	SideBar,
 	DeleteCardModal,
 	ContentModalBox,
-	LeftModal
+	LeftModal,
+	RightModal
 } from './HomePageStyle';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -82,12 +88,20 @@ const HomePage = () => {
 	const [newInput, setNewInput] = useState('');
 	// delete item modal
 	// const [cardOpenModal, setCardOpenModal] = useState<number | null>(null);
-	const [isModal, setIsModal] = useState<number | null>(null);
+	const [isModal, setIsModal] = useState(null);
 	const [openModal, setOpenModal] = useState(false);
+	const [comentModalId, setComentModalId] = useState<null | number>(null)
 
 	// 											Modals
-	const modalOpen = () => {
-		setOpenModal(true);
+	const modalOpen = (id, todo) => {
+		console.log(id);
+		console.log(todo._id);
+
+		if (id === todo._id) {
+			setIsModal(todo);
+			setComentModalId(id)
+			setOpenModal(true);
+		}
 	};
 
 	const onClose = () => {
@@ -124,6 +138,7 @@ const HomePage = () => {
 			};
 			dispatch(postTodo(newData));
 			setIsOpenForm(false);
+			setTitle('');
 		}
 	};
 
@@ -149,6 +164,7 @@ const HomePage = () => {
 				};
 				dispatch(patchTodo({ id, newTodoData }));
 				setCardId(null);
+				setColumnTitle('');
 			}
 		}
 	};
@@ -387,10 +403,68 @@ const HomePage = () => {
 											src={modal_icon}
 											alt=""
 											onClick={() => {
-												modalOpen();
-												console.log(';ss');
+												modalOpen(todo._id, todo);
 											}}
 										/>
+										{comentModalId === todo._id ? (
+											<>
+												<Modal isOpen={openModal} onClose={onClose}>
+													{isModal && (
+														<>
+															<ContentModalBox>
+																<LeftModal>
+																	<p>{todo.todoTitle}</p>
+																	<input type="text" />
+																</LeftModal>
+																<RightModal>
+																	<ul>
+																		<li>
+																			{' '}
+																			<img src={members} alt="" />
+																			Члены
+																		</li>
+																		<li>
+																			{' '}
+																			<img src={birki} alt="" />
+																			Бирки
+																		</li>
+																		<li>
+																			<img src={molnia} alt="" />
+																			Контрольный список
+																		</li>
+																		<li>
+																			{' '}
+																			<img src={time_date} alt="" />
+																			Даты
+																		</li>
+																		<li>
+																			{' '}
+																			<img src={nested_icon} alt="" />
+																			Вложение
+																		</li>
+																		<li>
+																			{' '}
+																			<img src={lid_icon} alt="" />
+																			Крышка
+																		</li>
+																		<li>
+																			<img src={files_setting} alt="" />
+																			Настраеваемые папки
+																		</li>
+																		<li>
+																			{' '}
+																			<img src={delete_btn} alt="" />
+																			Улаить задачу
+																		</li>
+																		<li></li>
+																	</ul>
+																</RightModal>
+															</ContentModalBox>
+														</>
+													)}
+												</Modal>
+											</>
+										) : null}
 									</CardBoxy>
 								))}
 								{item._id === cardId ? (
@@ -424,18 +498,6 @@ const HomePage = () => {
 										<DeleteCardModal></DeleteCardModal>
 									</>
 								) : null} */}
-								<Modal isOpen={openModal} onClose={onClose}>
-									{isModal && (
-										<>
-											<ContentModalBox>
-												<LeftModal>
-													<h2>asd</h2>
-													<input type="text" />
-												</LeftModal>
-											</ContentModalBox>
-										</>
-									)}
-								</Modal>
 							</Card>
 						))}
 						{isOpenForm ? (

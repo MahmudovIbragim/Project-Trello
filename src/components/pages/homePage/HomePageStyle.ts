@@ -438,12 +438,24 @@ export const ContentModalBox = styled.div`
 	padding: 12px 0px;
 	background-color: #323940;
 	border-radius: 7px;
-	position: absolute;
-	z-index: 11;
 `;
 
-export const LeftModal = styled.div``;
+export const LeftModal = styled.div`
+	background-color: red;
+`;
 
-export const RightModal = styled.div``;
+export const RightModal = styled.div`
+	ul {
+		display: flex;
+		flex-direction: column;
+		li {
+			display: flex;
+			
+			img {
+				width: 20px;
+			}
+		}
+	}
+`;
 
 //														 modals
