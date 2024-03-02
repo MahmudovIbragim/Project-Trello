@@ -96,6 +96,7 @@ const HomePage = () => {
 	const [comentModalId, setComentModalId] = useState<null | number>(null);
 	const commentsData = useAppSelector((state) => state.commentReducer.data);
 	const [comentValue, setComentValue] = useState('');
+	const [testComent, setTestComent] = useState<null | number>(null);
 	console.log(commentsData);
 
 	const handleAddComments = () => {
@@ -116,12 +117,13 @@ const HomePage = () => {
 
 	// 											Modals
 	const modalOpen = (id: number, todo: ModalTodoType) => {
-		console.log(id);
-		console.log(todo._id);
 		if (id === todo._id) {
 			setIsModal(todo);
 			setComentModalId(id);
 			setOpenModal(true);
+
+			console.log(todo._id);
+			setTestComent(todo._id);
 		}
 	};
 
@@ -448,24 +450,26 @@ const HomePage = () => {
 																	<ComentContainer>
 																		{commentsData.map((element) => (
 																			<>
-																				<CommetnsBox>
-																					<img src={profileImage} alt="" />
-																					<ul>
-																						<h5>{userName}</h5>
-																						<li>
-																							{element.review}{' '}
-																							<img
-																								src={delete_btn}
-																								onClick={() =>
-																									deleteItemCommeent(
-																										element._id
-																									)
-																								}
-																								alt=""
-																							/>
-																						</li>
-																					</ul>
-																				</CommetnsBox>
+																				<>
+																					<CommetnsBox>
+																						<img src={profileImage} alt="" />
+																						<ul>
+																							<h5>{userName}</h5>
+																							<li>
+																								{element.review}{' '}
+																								<img
+																									src={delete_btn}
+																									onClick={() =>
+																										deleteItemCommeent(
+																											element._id
+																										)
+																									}
+																									alt=""
+																								/>
+																							</li>
+																						</ul>
+																					</CommetnsBox>
+																				</>
 																			</>
 																		))}
 																	</ComentContainer>

@@ -44,10 +44,11 @@ export const getComments = createAsyncThunk('comment/getComment', async () => {
 });
 
 export const deleteComment = createAsyncThunk(
-	'comment/deleteComment',async (id:number) => {
+	'comment/deleteComment',
+	async (id: number) => {
 		try {
-      const response = (await axios.delete(`${apiLink}/${id}`)).data
-      return response
+			const response = (await axios.delete(`${apiLink}/${id}`)).data;
+			return response;
 		} catch (e) {
 			console.error(e);
 		}

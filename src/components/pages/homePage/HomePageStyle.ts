@@ -188,7 +188,6 @@ export const SideBar = styled.div`
 	max-width: 260px;
 	width: 100%;
 	height: 100vh;
-
 	ul {
 		display: flex;
 		flex-direction: column;
@@ -227,6 +226,7 @@ export const Advresting = styled.div`
 	}
 `;
 export const Content = styled.div`
+	height: 100vh;
 	width: 100%;
 	background: linear-gradient(
 		45deg,

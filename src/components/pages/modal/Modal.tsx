@@ -14,6 +14,7 @@ const ModalBox = styled.div`
 	justify-content: start;
 	align-items: center;
 	position: fixed;
+	overflow: auto;
 	top: 0px;
 	left: 0px;
 	width: 100%;
