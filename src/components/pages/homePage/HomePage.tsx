@@ -96,7 +96,6 @@ const HomePage = () => {
 	const [comentModalId, setComentModalId] = useState<null | number>(null);
 	const commentsData = useAppSelector((state) => state.commentReducer.data);
 	const [comentValue, setComentValue] = useState('');
-	const [testComent, setTestComent] = useState<null | number>(null);
 	console.log(commentsData);
 
 	const handleAddComments = () => {
@@ -123,7 +122,6 @@ const HomePage = () => {
 			setOpenModal(true);
 
 			console.log(todo._id);
-			setTestComent(todo._id);
 		}
 	};
 
