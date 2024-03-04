@@ -6,7 +6,7 @@ import google from '../../../assets/google-logo.5867462c.svg';
 import microsoft from '../../../assets/microsoft.svg';
 import apple from '../../../assets/apple.svg';
 import slack from '../../../assets/slack.svg';
-import { useAppDispatch, useAppSelector } from '../../../redux/store';
+import { useAppDispatch } from '../../../redux/store';
 import { loginPostUser } from '../../../redux/features/userSlice';
 import { useNavigate } from 'react-router-dom';
 
@@ -126,7 +126,6 @@ const LogoAtlass = styled.div`
 `;
 
 const RegistrPage = () => {
-	const userData = useAppSelector((state) => state.userDataReducer.data);
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const [name, setName] = useState('');
