@@ -442,11 +442,11 @@ export const ButtonTitles = styled.div`
 	img {
 		width: 20px;
 		margin-right: 6px;
+		cursor: pointer;
 	}
 `;
 export const DeleteCardModal = styled.div``;
 
-//  													modals
 
 export const ContentModalBox = styled.div`
 	display: flex;
@@ -588,4 +588,19 @@ export const RightModal = styled.div`
 	}
 `;
 
-//														 modals
+export const InputAddCard = styled.div`
+	input {
+		font-size: 18px;
+		font-weight: 600;
+		color: white;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+			Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+			sans-serif;
+		border-radius: 10px;
+		padding: 5px 0px 5px 20px;
+		background-color: #22272b;
+		outline: none;
+		width: 95%;
+	}
+`;
+

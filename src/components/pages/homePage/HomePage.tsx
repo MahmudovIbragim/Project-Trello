@@ -58,7 +58,7 @@ import {
 	LeftModal,
 	RightModal,
 	ComentContainer,
-	CommetnsBox
+	InputAddCard
 } from './HomePageStyle';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -70,11 +70,6 @@ import {
 } from '../../../redux/features/todoSlice';
 import { ModalTodoType, TodoItemType, TodoType } from '../../../types';
 import Modal from '../modal/Modal';
-import {
-	deleteComment,
-	getComments,
-	postComments
-} from '../../../redux/features/commentSlice';
 
 const HomePage = () => {
 	const dispatch = useAppDispatch();
@@ -94,34 +89,13 @@ const HomePage = () => {
 	const [isModal, setIsModal] = useState<null | number | ModalTodoType>(null);
 	const [openModal, setOpenModal] = useState(false);
 	const [comentModalId, setComentModalId] = useState<null | number>(null);
-	const commentsData = useAppSelector((state) => state.commentReducer.data);
 	const [comentValue, setComentValue] = useState('');
-	console.log(commentsData);
 
-	const handleAddComments = () => {
-		if (comentValue === '') {
-			alert('Поля путсая');
-		} else {
-			const newData = {
-				review: comentValue
-			};
-			dispatch(postComments(newData));
-			setComentValue('');
-		}
-	};
-
-	const deleteItemCommeent = (id: number) => {
-		dispatch(deleteComment(id));
-	};
-
-	// 											Modals
 	const modalOpen = (id: number, todo: ModalTodoType) => {
 		if (id === todo._id) {
 			setIsModal(todo);
 			setComentModalId(id);
 			setOpenModal(true);
-
-			console.log(todo._id);
 		}
 	};
 
@@ -129,8 +103,6 @@ const HomePage = () => {
 		setOpenModal(false);
 		setIsModal(null);
 	};
-
-	//												Modal
 
 	const isUsers = +localStorage.getItem('isUser')!;
 
@@ -179,7 +151,8 @@ const HomePage = () => {
 						...item.todos,
 						{
 							_id: Math.random(),
-							todoTitle: columnTitle
+							todoTitle: columnTitle,
+							review: []
 						}
 					]
 				};
@@ -203,7 +176,8 @@ const HomePage = () => {
 				}
 				return {
 					todoTitle: newInput,
-					_id: i._id
+					_id: i._id,
+					review: []
 				};
 			});
 
@@ -215,17 +189,13 @@ const HomePage = () => {
 			setIsCompleted(null);
 		}
 	};
-	// 														delete
 	const deleteItemTodos = (_id: number) => {
 		dispatch(deleteItem(_id));
 	};
 
-	// 											delete
-
 	useEffect(() => {
 		dispatch(getUsers());
 		dispatch(getTodo());
-		dispatch(getComments());
 	}, []);
 
 	useEffect(() => {
@@ -442,35 +412,8 @@ const HomePage = () => {
 																			setComentValue(e.target.value)
 																		}
 																	/>
-																	<button onClick={handleAddComments}>
-																		Добавить комментари
-																	</button>
-																	<ComentContainer>
-																		{commentsData.map((element) => (
-																			<>
-																				<>
-																					<CommetnsBox>
-																						<img src={profileImage} alt="" />
-																						<ul>
-																							<h5>{userName}</h5>
-																							<li>
-																								{element.review}{' '}
-																								<img
-																									src={delete_btn}
-																									onClick={() =>
-																										deleteItemCommeent(
-																											element._id
-																										)
-																									}
-																									alt=""
-																								/>
-																							</li>
-																						</ul>
-																					</CommetnsBox>
-																				</>
-																			</>
-																		))}
-																	</ComentContainer>
+																	<button>Добавить комментари</button>
+																	<ComentContainer></ComentContainer>
 																</LeftModal>
 																<RightModal>
 																	<ul>
@@ -551,14 +494,15 @@ const HomePage = () => {
 							</Card>
 						))}
 						{isOpenForm ? (
-							<>
+							<InputAddCard>
 								<input
 									type="text"
+									placeholder="Назване"
 									value={title}
 									onChange={(e) => setTitle(e.target.value)}
 									onKeyDown={(event) => handleTodos(event)}
 								/>
-							</>
+							</InputAddCard>
 						) : null}
 						<AddCard>
 							<button onClick={() => setIsOpenForm(!isOpenForm)}>

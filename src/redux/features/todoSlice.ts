@@ -16,19 +16,6 @@ const initialState: InitialState = {
 
 const apiLink = import.meta.env.VITE_BACKEND_URL_TODO;
 
-export const postTodo = createAsyncThunk(
-	'todo/postTodo',
-	async (newData: { title: string }) => {
-		try {
-			const response = await axios.post(apiLink, newData);
-			return response.data;
-		} catch (error) {
-			console.error('Error while posting todo:', error);
-			throw error;
-		}
-	}
-);
-
 export const getTodo = createAsyncThunk('todo/getTodo', async () => {
 	try {
 		const response = await axios.get(apiLink);
@@ -39,11 +26,32 @@ export const getTodo = createAsyncThunk('todo/getTodo', async () => {
 	}
 });
 
+export const postTodo = createAsyncThunk(
+	'todo/postTodo',
+	async (newData: { title: string }, { dispatch }) => {
+		try {
+			const response = await axios.post(apiLink, newData);
+
+			dispatch(getTodo());
+
+			return response.data;
+		} catch (error) {
+			console.error('Error while posting todo:', error);
+			throw error;
+		}
+	}
+);
+
 export const patchTodo = createAsyncThunk(
 	'todo/patchTodo',
-	async ({ id, newTodoData }: { id: number; newTodoData: TodoType }) => {
+	async (
+		{ id, newTodoData }: { id: number; newTodoData: TodoType },
+		{ dispatch }
+	) => {
 		try {
 			const response = await axios.patch(`${apiLink}/${id}`, newTodoData);
+			dispatch(getTodo());
+
 			return response.data;
 		} catch (error) {
 			console.error('Error while patching todo:', error);
@@ -52,17 +60,25 @@ export const patchTodo = createAsyncThunk(
 	}
 );
 
+
+
 export const putTodoTitle = createAsyncThunk(
 	'todo/putTodo',
-	async ({
-		id,
-		newData
-	}: {
-		id: number;
-		newData: { todos: TodoItemType[] };
-	}) => {
+	async (
+		{
+			id,
+			newData
+		}: {
+			id: number;
+			newData: { todos: TodoItemType[] };
+		},
+		{ dispatch }
+	) => {
 		try {
 			const response = await axios.put(`${apiLink}/${id}`, newData);
+
+			dispatch(getTodo());
+
 			return response.data;
 		} catch (error) {
 			console.error('Error while putting todo title:', error);
@@ -73,9 +89,11 @@ export const putTodoTitle = createAsyncThunk(
 
 export const deleteItem = createAsyncThunk(
 	'todo/deleteTodo',
-	async (_id: number) => {
+	async (_id: number, { dispatch }) => {
 		try {
 			const response = (await axios.delete(`${apiLink}/${_id}`)).data;
+			dispatch(getTodo());
+
 			return response;
 		} catch (e) {
 			console.error(e);
