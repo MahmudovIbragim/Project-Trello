@@ -146,7 +146,6 @@ const RegistrPage = () => {
 			navigate('/');
 		}
 	};
-	console.log(userData);
 
 	const navigateFunc = () => {
 		navigate('/');

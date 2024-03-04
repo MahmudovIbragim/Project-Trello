@@ -156,9 +156,6 @@ const todoSlice = createSlice({
 			})
 			.addCase(deleteItem.fulfilled, (state, action) => {
 				state.data = action.payload;
-				console.log(action.payload);
-				console.log(state.data);
-
 				state.loading = false;
 			})
 			.addCase(deleteItem.rejected, (state) => {
