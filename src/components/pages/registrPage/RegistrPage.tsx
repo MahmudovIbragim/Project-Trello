@@ -142,7 +142,7 @@ const RegistrPage = () => {
 				image: profile
 			};
 			dispatch(loginPostUser(dataUser));
-			navigate('/home');
+			navigate('/');
 		}
 	};
 
